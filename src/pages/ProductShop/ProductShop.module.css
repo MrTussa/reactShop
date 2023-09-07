@@ -1,0 +1,7 @@
+.header {
+  display: "flex";
+  align-items: "center";
+}
+.contentContainer {
+  padding: 0 50px;
+}

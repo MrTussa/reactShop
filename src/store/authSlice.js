@@ -5,7 +5,6 @@ import { registerUser, userLogin } from './authActions'
 const userToken = localStorage.getItem('userToken')
     ? localStorage.getItem('userToken')
     : null
-
 const initialState = {
     loading: false,
     userInfo: null,
@@ -14,10 +13,15 @@ const initialState = {
     success: false,
 }
 
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        setCredentials: (state, { payload }) => {
+            state.userInfo = payload
+        },
+    },
     extraReducers: {
         // login user
         [userLogin.pending]: (state) => {
@@ -48,4 +52,5 @@ const authSlice = createSlice({
         },
     },
 })
+export const { setCredentials } = authSlice.actions
 export default authSlice.reducer
