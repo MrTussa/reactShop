@@ -1,20 +1,20 @@
 import { Layout, Menu } from "antd";
-// const { Header as La } = Layout;
+import { NavLink } from 'react-router-dom'
 import s from "./Header.module.css";
 
-export default function Header({}) {
+export default function Header({ }) {
   const menuItems = [
     {
       key: 1,
-      label: "Главная",
+      label: <NavLink to="/">Главная</NavLink>,
     },
     {
       key: 2,
-      label: "Продукты",
+      label: <NavLink to="/products">Продукты</NavLink>,
     },
     {
       key: 3,
-      label: "Блог",
+      label: <NavLink to="/blog">Блог</NavLink>,
     },
   ];
   return (
@@ -22,7 +22,7 @@ export default function Header({}) {
       <Menu
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={["2"]}
+        defaultSelectedKeys={["1"]}
         items={menuItems}
       />
     </Layout.Header>
