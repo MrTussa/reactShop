@@ -18,9 +18,6 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setCredentials: (state, { payload }) => {
-            state.userInfo = payload
-        },
     },
     extraReducers: {
         // login user
@@ -44,7 +41,7 @@ const authSlice = createSlice({
         },
         [registerUser.fulfilled]: (state, { payload }) => {
             state.loading = false
-            state.success = true // registration successful
+            state.success = true
         },
         [registerUser.rejected]: (state, { payload }) => {
             state.loading = false
@@ -52,5 +49,4 @@ const authSlice = createSlice({
         },
     },
 })
-export const { setCredentials } = authSlice.actions
 export default authSlice.reducer
