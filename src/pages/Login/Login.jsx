@@ -2,11 +2,12 @@ import s from "./Login.module.css";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
+import { setUserInfo } from '../../store/authSlice';
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { userLogin } from "../../store/authActions";
 import clsx from "clsx";
-export default function Login({}) {
+export default function Login({ }) {
   const { loading, error, userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,9 +15,12 @@ export default function Login({}) {
     console.log(data);
     dispatch(userLogin(data));
   };
-
+  console.log(userInfo);
   useEffect(() => {
-    if (userInfo) navigate("/");
+    if (userInfo) {
+      dispatch(setUserInfo(userInfo));
+      navigate("/")
+    }
   }, [userInfo]);
 
   return (

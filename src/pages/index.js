@@ -1,5 +1,7 @@
 export {default as Main} from "./Main"
-export {default as Register} from "./Register"
 export {default as ProductShop} from "./ProductShop"
 export {default as ProtectedRoute} from "./ProtectedRoute"
+export {default as PageStructure} from "./PageStructure"
+export {default as ErrorPage} from "./ErrorPage"
+export {default as UserProfile} from "./UserProfile"
 export {default as Login} from "./Login"

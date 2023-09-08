@@ -1,34 +1,48 @@
 import s from "./ProductShop.module.css";
-import { Layout, theme, Spin } from "antd";
-import { Header } from "../../components";
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllProducts } from "../../store/shopActions";
-import { useEffect } from 'react'
-const { Content, Footer } = Layout;
-
-export default function ProductShop({}) {
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-  const dispatch = useDispatch()
-  const { products, loading } = useSelector((state) => state.shop)
+import { Spin, Alert, List } from "antd";
+import {  ProductCard } from '../../components';
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+export default function ProductShop({ }) {
+  const [serverData, setServerData] = useState()
+  const backendURL = import.meta.env.VITE_API
   useEffect(() => {
-      dispatch(getAllProducts())
+    getData()
   }, []);
+  async function getData() {
+    try {
+      const {data:{products}} = await axios.get(`${backendURL}/products`)
+      setServerData(products)
+      console.log(products);
+    } catch (error) {
+      console.log(error);
+      return (error.message)
+    }
+  }
   return (
-    <Layout className="layout">
-      <Header></Header>
-      <Content className={s.contentContainer}>
-        <div className={s.content} style={{ background: colorBgContainer }}>
-        {loading && (
-            <div>
-              <Spin size="large" />
-            </div>
-        )}
-        </div>
-      </Content>
+    <div className={s.content}>
+    {!serverData ? (
+      <div>
+        <Spin size="large">
+          <Alert
+            message={<br/>}
+            description={<br/>}
+            type="info"
+          />
+        </Spin>
+      </div>
+    ) : (
+        <List
+          grid={{ gutter: 16, column: 5 }}
+          dataSource={serverData}
+          renderItem={(item) =>
+              <List.Item>
+                <ProductCard item={item}/>
+              </List.Item>
 
-      <Footer style={{ textAlign: "center" }}>Developed by MRTusa</Footer>
-    </Layout>
+          }
+        />
+      )}
+  </div>
   );
 }

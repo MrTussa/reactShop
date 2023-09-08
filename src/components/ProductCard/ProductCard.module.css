@@ -22,3 +22,21 @@
   font-size: 1.1em;
   color: rgb(97, 97, 97);
 }
+.details {
+  align-items: center;
+  display: flex;
+  gap: 40px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.price {
+  font-weight: 700;
+  font-size: 3em;
+}
+.hr {
+  margin: 4px 0;
+}
+.discount {
+  
+  font-size: 1.3em;
+}

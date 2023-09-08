@@ -1,16 +1,11 @@
 import s from './Main.module.css'
-import { Layout, theme, List, Spin, Card } from 'antd';
-import { Header, ProductCard } from '../../components';
+import { List, Spin, Card, Alert } from 'antd';
+import {  ProductCard } from '../../components';
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-const { Content, Footer } = Layout;
 export default function Main({ }) {
   const [serverData, setServerData] = useState()
-  console.log();
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-  const backendURL = import.meta.env.VITE_SOME_KEY
+  const backendURL = import.meta.env.VITE_API
   useEffect(() => {
     getData()
   }, []);
@@ -26,15 +21,16 @@ export default function Main({ }) {
     }
   }
   return (
-    <Layout className="layout">
-
-      <Header></Header>
-
-      <Content className={s.contentContainer}>
-        <div className={s.content} style={{ background: colorBgContainer }}>
+        <div className={s.content}>
           {!serverData ? (
             <div>
-              <Spin size="large" />
+              <Spin size="large">
+                <Alert
+                  message={<br/>}
+                  description={<br/>}
+                  type="info"
+                />
+              </Spin>
             </div>
           ) : (
               <List
@@ -53,9 +49,5 @@ export default function Main({ }) {
               />
             )}
         </div>
-      </Content>
-
-      <Footer style={{ textAlign: 'center' }}>Developed by MRTusa</Footer>
-    </Layout>
   );
 }

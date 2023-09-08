@@ -13,11 +13,13 @@ const initialState = {
     success: false,
 }
 
-
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
+        setUserInfo: (state, props) => {
+            state.userInfo = props
+        }
     },
     extraReducers: {
         // login user
@@ -49,4 +51,5 @@ const authSlice = createSlice({
         },
     },
 })
+export const { setUserInfo } = authSlice
 export default authSlice.reducer
