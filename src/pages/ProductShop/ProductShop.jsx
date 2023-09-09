@@ -9,6 +9,8 @@ export default function ProductShop({ }) {
   useEffect(() => {
     getData()
   }, []);
+  const { innerWidth: width } = window
+  console.log(width);
   async function getData() {
     try {
       const {data:{products}} = await axios.get(`${backendURL}/products`)
@@ -19,6 +21,17 @@ export default function ProductShop({ }) {
       return (error.message)
     }
   }
+
+  const listColumn = () => {
+    if (width > 1500) {
+      return 5
+    } else if (width > 1024) {
+      return 4
+    } else if (width < 1024) {
+      return 3
+    }
+  }
+  console.log(listColumn());
   return (
     <div className={s.content}>
     {!serverData ? (
@@ -33,7 +46,7 @@ export default function ProductShop({ }) {
       </div>
     ) : (
         <List
-          grid={{ gutter: 16, column: 5 }}
+          grid={{ gutter: 16, column:  listColumn()  }}
           dataSource={serverData}
           renderItem={(item) =>
               <List.Item>
