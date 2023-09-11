@@ -14,7 +14,7 @@ export default function ProductCard({
           {images.map((url) => {
             return (
               <div key={id}>
-                <img className={s.img} key={id} src={url} />
+                <img className={s.img} key={id} alt={title} src={url} />
               </div>
             );
           })}
@@ -30,7 +30,6 @@ export default function ProductCard({
             {discountPercentage ? (
               <div>
                 <span className={s.rating}>
-                  {" "}
                   <Rate allowHalf disabled defaultValue={rating} />
                 </span>
                 <hr className={s.hr} />
@@ -40,7 +39,6 @@ export default function ProductCard({
               </div>
             ) : (
               <span className={s.rating}>
-                {" "}
                 <Rate allowHalf disabled defaultValue={rating} />
               </span>
             )}

@@ -1,10 +1,10 @@
 import { Layout, Menu } from "antd";
-import { NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 import s from "./Header.module.css";
 
-export default function Header({ }) {
-  const { userToken } = useSelector((state) => state.auth)
+export default function Header({}) {
+  const { userToken } = useSelector((state) => state.auth);
   const menuItems = [
     {
       key: 1,
@@ -20,7 +20,11 @@ export default function Header({ }) {
     },
     {
       key: 4,
-      label: userToken ? <NavLink to="/profile">Профиль</NavLink> : <NavLink to="/login">Войти</NavLink>,
+      label: userToken ? (
+        <NavLink to="/profile">Профиль</NavLink>
+      ) : (
+        <NavLink to="/login">Войти</NavLink>
+      ),
     },
   ];
   return (

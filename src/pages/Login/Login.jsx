@@ -2,7 +2,6 @@ import s from "./Login.module.css";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserInfo } from '../../store/authSlice';
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { userLogin } from "../../store/authActions";
@@ -18,7 +17,6 @@ export default function Login({ }) {
   console.log(userInfo);
   useEffect(() => {
     if (userInfo) {
-      dispatch(setUserInfo(userInfo));
       navigate("/")
     }
   }, [userInfo]);

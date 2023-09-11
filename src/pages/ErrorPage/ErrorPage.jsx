@@ -8,7 +8,7 @@ export default function ErrorPage({ }) {
     <div className={s.container}>
       <Card
         className={s.card}
-        cover={<img alt="404" src="404.png" />}
+        cover={<img className={s.img} alt="404" src="404.png" />}
       >
         <div className={s.content}>
           <span className={s.text}>Страница Не Найдена</span>

@@ -42,6 +42,7 @@ export const userLogin  = createAsyncThunk(
         config
       )
       localStorage.setItem('userToken', data.token)
+      localStorage.setItem('userInfo', JSON.stringify(data))
       return data
     } catch (error) {
       if (error.response && error.response.data.message) {
