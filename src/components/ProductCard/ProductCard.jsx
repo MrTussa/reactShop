@@ -1,10 +1,11 @@
 import s from "./ProductCard.module.css";
 import { Card, Carousel, Rate, Button } from "antd";
-
+import { useNavigate } from 'react-router-dom'
 export default function ProductCard({
   item: { id, images, title, description, price, rating, discountPercentage },
   isPreview = false, addCart
 }) {
+  const navigate = useNavigate()
   return (
     <Card
       key={id}
@@ -21,8 +22,8 @@ export default function ProductCard({
         </Carousel>
       }
     >
-        <div className={s.content}>
-      <div className={s.card}>
+      <div className={s.content}>
+        <div className={s.card}>
           <span className={s.title}>{title}</span>
           <span className={s.desc}>{description}</span>
           <div className={s.details}>
@@ -38,17 +39,17 @@ export default function ProductCard({
                 </span>
               </div>
             ) : (
-              <span className={s.rating}>
-                <Rate allowHalf disabled defaultValue={rating} />
-              </span>
-            )}
+                <span className={s.rating}>
+                  <Rate allowHalf disabled defaultValue={rating} />
+                </span>
+              )}
           </div>
         </div>
         {!isPreview && (
           <div className={s.buttonContainer}>
-            <Button className={s.button}>Подробнее</Button>
+            <Button onClick={() => navigate(`/products/${id}`)} className={s.button}>Подробнее</Button>
             <div className={s.decoration}>|</div>
-            <Button className={s.button} onClick={() => addCart(title)}>В корзину</Button>
+            <Button className={s.button} onClick={() => addCart({ title: title, price: price })}>В корзину</Button>
           </div>
         )}
       </div>

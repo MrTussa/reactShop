@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   startData: null,
-  userCart: [""],
+  userCart: [],
   loading: false,
   error: null,
 }

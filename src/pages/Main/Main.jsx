@@ -15,7 +15,6 @@ export default function Main({}) {
       const posts = await axios.get(`${backendURL}/posts?limit=3&skip=10`);
       const data = [...posts.data.posts, ...shop.data.products];
       setServerData(data);
-      console.log(data[3]);
     } catch (error) {
       return error.message;
     }

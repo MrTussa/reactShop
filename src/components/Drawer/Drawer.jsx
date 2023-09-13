@@ -21,7 +21,10 @@ export default function Drawer({onClose, open}) {
       >
         {userCart?.map((item, index)=> {
           return(
-            <p key={index}>{item}</p>
+            <div className={s.listItem}>
+            <p key={index}>{item.title}</p>
+            <p key={index}>${item.price}</p>
+            </div>
           )
         })}
       </AntdDeawer>

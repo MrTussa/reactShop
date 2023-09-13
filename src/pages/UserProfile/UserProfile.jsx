@@ -7,9 +7,6 @@ export default function UserProfile({}) {
   const {
     userInfo: { image, gender, lastName, firstName, email, username },
   } = useSelector((state) => state.auth);
-  console.log(gender);
-  const userInfo = useSelector((state) => state.auth);
-  console.log(userInfo);
   return (
     <div className={s.container}>
       <Card className={s.card} bodyStyle={{padding: "0px"}}>

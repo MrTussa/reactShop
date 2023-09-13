@@ -1,13 +1,19 @@
 import s from "./ProductShop.module.css";
-import { Spin, Alert, List, Button } from "antd";
+import { Spin, Alert, List, Button, message, Badge } from "antd";
+import { ShoppingCartOutlined } from '@ant-design/icons';
 import { ProductCard, Drawer } from "../../components";
-import {useDispatch} from 'react-redux';
-import {addToCart} from '../../store/shopSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../store/shopSlice';
 import { useEffect, useState } from "react";
 import axios from "axios";
-export default function ProductShop({}) {
+export default function ProductShop({ }) {
   const [serverData, setServerData] = useState();
-  const backendURL = import.meta.env.VITE_API;
+  const { userCart } = useSelector((state) => state.shop)
+  const [badgeCount, setBadgeCount] = useState(userCart.length);
+  const [open, setOpen] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  const dispatch = useDispatch()
+  const API_URL = import.meta.env.VITE_API;
   useEffect(() => {
     getData();
   }, []);
@@ -16,7 +22,7 @@ export default function ProductShop({}) {
     try {
       const {
         data: { products },
-      } = await axios.get(`${backendURL}/products`);
+      } = await axios.get(`${API_URL}/products`);
       setServerData(products);
     } catch (error) {
       return error.message;
@@ -35,19 +41,25 @@ export default function ProductShop({}) {
     }
   };
 
-  const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
   };
   const onClose = () => {
     setOpen(false);
   };
-  const dispatch = useDispatch()
   const addItem = (item) => {
+    messageApi.open({
+      type: 'success',
+      content: 'Добавлено в корзину',
+    });
+    setBadgeCount(badgeCount + 1);
     dispatch(addToCart(item))
   }
+
+
   return (
     <div className={s.content}>
+      {contextHolder}
       {!serverData ? (
         <div>
           <Spin size="large">
@@ -55,20 +67,24 @@ export default function ProductShop({}) {
           </Spin>
         </div>
       ) : (
-        <List
-          grid={{ gutter: 16, column: listColumn() }}
-          dataSource={serverData}
-          renderItem={(item) => (
-            <List.Item>
-              <ProductCard item={item} addCart={addItem}/>
-            </List.Item>
-          )}
-        />
-      )}
-      <Button type="primary" onClick={showDrawer}>
-        Open
+          <>
+            <Badge count={badgeCount}>
+              <Button type="primary" onClick={showDrawer}>
+                <ShoppingCartOutlined /> Корзина
       </Button>
-      <Drawer onClose={onClose} open={open}/>
+            </Badge>
+            <List
+              grid={{ gutter: 16, column: listColumn() }}
+              dataSource={serverData}
+              renderItem={(item) => (
+                <List.Item>
+                  <ProductCard item={item} addCart={addItem} />
+                </List.Item>
+              )}
+            />
+          </>
+        )}
+      <Drawer onClose={onClose} open={open} />
     </div>
   );
 }
