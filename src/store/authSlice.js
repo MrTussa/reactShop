@@ -8,6 +8,7 @@ const userToken = localStorage.getItem('userToken')
 const userInfo = localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
     : null
+    console.log(userToken);
 const initialState = {
     loading: false,
     userInfo,
@@ -20,9 +21,10 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setUserInfo: (state, props) => {
-            state.userInfo = props
-        }
+        logoutUser: (state) => {
+            state.userInfo = null
+            state.userToken = null
+        },
     },
     extraReducers: {
         // login user
@@ -33,7 +35,7 @@ const authSlice = createSlice({
         [userLogin.fulfilled]: (state, { payload }) => {
             state.loading = false
             state.userInfo = payload
-            state.userToken = payload.userToken
+            state.userToken = payload.token
         },
         [userLogin.rejected]: (state, { payload }) => {
             state.loading = false
@@ -54,5 +56,5 @@ const authSlice = createSlice({
         },
     },
 })
-export const { setUserInfo } = authSlice
+export const { logoutUser } = authSlice.actions
 export default authSlice.reducer

@@ -1,5 +1,5 @@
 import s from "./UserProfile.module.css";
-import { ArrowLeftOutlined, UserOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 import { Button, Avatar, Card } from "antd";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";

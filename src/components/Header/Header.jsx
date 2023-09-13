@@ -21,9 +21,9 @@ export default function Header({}) {
     {
       key: 4,
       label: userToken ? (
-        <NavLink to="/profile">Профиль</NavLink>
+        <NavLink  to="/profile">Профиль</NavLink>
       ) : (
-        <NavLink to="/login">Войти</NavLink>
+        <NavLink  to="/login">Войти</NavLink>
       ),
     },
   ];

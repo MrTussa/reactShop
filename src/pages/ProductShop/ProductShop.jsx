@@ -1,6 +1,8 @@
 import s from "./ProductShop.module.css";
-import { Spin, Alert, List } from "antd";
-import { ProductCard } from "../../components";
+import { Spin, Alert, List, Button } from "antd";
+import { ProductCard, Drawer } from "../../components";
+import {useDispatch} from 'react-redux';
+import {addToCart} from '../../store/shopSlice';
 import { useEffect, useState } from "react";
 import axios from "axios";
 export default function ProductShop({}) {
@@ -32,6 +34,18 @@ export default function ProductShop({}) {
       return 2;
     }
   };
+
+  const [open, setOpen] = useState(false);
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
+  const dispatch = useDispatch()
+  const addItem = (item) => {
+    dispatch(addToCart(item))
+  }
   return (
     <div className={s.content}>
       {!serverData ? (
@@ -46,11 +60,15 @@ export default function ProductShop({}) {
           dataSource={serverData}
           renderItem={(item) => (
             <List.Item>
-              <ProductCard item={item} />
+              <ProductCard item={item} addCart={addItem}/>
             </List.Item>
           )}
         />
       )}
+      <Button type="primary" onClick={showDrawer}>
+        Open
+      </Button>
+      <Drawer onClose={onClose} open={open}/>
     </div>
   );
 }

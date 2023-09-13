@@ -3,7 +3,7 @@ import { Card, Carousel, Rate, Button } from "antd";
 
 export default function ProductCard({
   item: { id, images, title, description, price, rating, discountPercentage },
-  isPreview = false,
+  isPreview = false, addCart
 }) {
   return (
     <Card
@@ -48,7 +48,7 @@ export default function ProductCard({
           <div className={s.buttonContainer}>
             <Button className={s.button}>Подробнее</Button>
             <div className={s.decoration}>|</div>
-            <Button className={s.button}>В корзину</Button>
+            <Button className={s.button} onClick={() => addCart(title)}>В корзину</Button>
           </div>
         )}
       </div>
