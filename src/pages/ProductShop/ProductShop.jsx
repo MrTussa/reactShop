@@ -1,18 +1,10 @@
 import s from "./ProductShop.module.css";
-import { Spin, Alert, List, Button, message, Badge } from "antd";
-import { ShoppingCartOutlined } from '@ant-design/icons';
-import { ProductCard, Drawer } from "../../components";
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../store/shopSlice';
+import { Spin, Alert, List } from "antd";
+import { ProductCard } from "../../components";
 import { useEffect, useState } from "react";
 import axios from "axios";
-export default function ProductShop({ }) {
+export default function ProductShop({}) {
   const [serverData, setServerData] = useState();
-  const { userCart } = useSelector((state) => state.shop)
-  const [badgeCount, setBadgeCount] = useState(userCart.length);
-  const [open, setOpen] = useState(false);
-  const [messageApi, contextHolder] = message.useMessage();
-  const dispatch = useDispatch()
   const API_URL = import.meta.env.VITE_API;
   useEffect(() => {
     getData();
@@ -41,25 +33,8 @@ export default function ProductShop({ }) {
     }
   };
 
-  const showDrawer = () => {
-    setOpen(true);
-  };
-  const onClose = () => {
-    setOpen(false);
-  };
-  const addItem = (item) => {
-    messageApi.open({
-      type: 'success',
-      content: 'Добавлено в корзину',
-    });
-    setBadgeCount(badgeCount + 1);
-    dispatch(addToCart(item))
-  }
-
-
   return (
     <div className={s.content}>
-      {contextHolder}
       {!serverData ? (
         <div>
           <Spin size="large">
@@ -67,24 +42,18 @@ export default function ProductShop({ }) {
           </Spin>
         </div>
       ) : (
-          <>
-            <Badge count={badgeCount}>
-              <Button type="primary" onClick={showDrawer}>
-                <ShoppingCartOutlined /> Корзина
-      </Button>
-            </Badge>
-            <List
-              grid={{ gutter: 16, column: listColumn() }}
-              dataSource={serverData}
-              renderItem={(item) => (
-                <List.Item>
-                  <ProductCard item={item} addCart={addItem} />
-                </List.Item>
-              )}
-            />
-          </>
-        )}
-      <Drawer onClose={onClose} open={open} />
+        <>
+          <List
+            grid={{ gutter: 16, column: listColumn() }}
+            dataSource={serverData}
+            renderItem={(item) => (
+              <List.Item>
+                <ProductCard item={item} />
+              </List.Item>
+            )}
+          />
+        </>
+      )}
     </div>
   );
 }

@@ -1,11 +1,26 @@
 import s from "./ProductCard.module.css";
-import { Card, Carousel, Rate, Button } from "antd";
-import { useNavigate } from 'react-router-dom'
+import { Card, Carousel, Rate, Button, message } from "antd";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../store/shopSlice";
+import { useState } from "react";
 export default function ProductCard({
   item: { id, images, title, description, price, rating, discountPercentage },
-  isPreview = false, addCart
+  isPreview = false,
 }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { userCart } = useSelector((state) => state.shop);
+  const [messageApi, contextHolder] = message.useMessage();
+  const [badgeCount, setBadgeCount] = useState(userCart.length);
+  const dispatch = useDispatch();
+  const addItem = (item) => {
+    messageApi.open({
+      type: "success",
+      content: "Добавлено в корзину",
+    });
+    setBadgeCount(badgeCount + 1);
+    dispatch(addToCart(item));
+  };
   return (
     <Card
       key={id}
@@ -22,6 +37,7 @@ export default function ProductCard({
         </Carousel>
       }
     >
+      {contextHolder}
       <div className={s.content}>
         <div className={s.card}>
           <span className={s.title}>{title}</span>
@@ -39,17 +55,27 @@ export default function ProductCard({
                 </span>
               </div>
             ) : (
-                <span className={s.rating}>
-                  <Rate allowHalf disabled defaultValue={rating} />
-                </span>
-              )}
+              <span className={s.rating}>
+                <Rate allowHalf disabled defaultValue={rating} />
+              </span>
+            )}
           </div>
         </div>
         {!isPreview && (
           <div className={s.buttonContainer}>
-            <Button onClick={() => navigate(`/products/${id}`)} className={s.button}>Подробнее</Button>
+            <Button
+              onClick={() => navigate(`/products/${id}`)}
+              className={s.button}
+            >
+              Подробнее
+            </Button>
             <div className={s.decoration}>|</div>
-            <Button className={s.button} onClick={() => addCart({ title: title, price: price })}>В корзину</Button>
+            <Button
+              className={s.button}
+              onClick={() => addItem({ title: title, price: price })}
+            >
+              В корзину
+            </Button>
           </div>
         )}
       </div>
