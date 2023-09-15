@@ -1,5 +1,5 @@
 import { Layout, Menu, Input, Button, Select, Badge } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCartOutlined } from "@ant-design/icons";
@@ -11,10 +11,11 @@ export default function Header({}) {
   const [searchType, setSearchType] = useState("products");
   const { userToken } = useSelector((state) => state.auth);
   const { userCart } = useSelector((state) => state.shop);
-  console.log(userCart);
 
-  const [badgeCount, setBadgeCount] = useState(userCart.length);
-  console.log(badgeCount);
+  const [badgeCount, setBadgeCount] = useState(0);
+  useEffect(() => {
+    setBadgeCount(userCart.length);
+  }, [userCart]);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const menuItems = [

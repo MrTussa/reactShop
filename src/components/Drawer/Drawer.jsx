@@ -3,6 +3,7 @@ import { Drawer as AntdDeawer, Space, Button } from "antd";
 import { useSelector } from "react-redux";
 export default function Drawer({ onClose, open }) {
   const { userCart } = useSelector((state) => state.shop);
+  let index = 0;
   return (
     <AntdDeawer
       title="Корзина"
@@ -19,7 +20,8 @@ export default function Drawer({ onClose, open }) {
         </Space>
       }
     >
-      {userCart?.map((item, index) => {
+      {userCart?.map((item) => {
+        index++;
         return (
           <div className={s.listItem} key={index}>
             <p key={index}>{item.title}</p>

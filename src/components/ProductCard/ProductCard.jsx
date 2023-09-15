@@ -1,24 +1,20 @@
 import s from "./ProductCard.module.css";
 import { Card, Carousel, Rate, Button, message } from "antd";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/shopSlice";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
 export default function ProductCard({
   item: { id, images, title, description, price, rating, discountPercentage },
   isPreview = false,
 }) {
   const navigate = useNavigate();
-  const { userCart } = useSelector((state) => state.shop);
   const [messageApi, contextHolder] = message.useMessage();
-  const [badgeCount, setBadgeCount] = useState(userCart.length);
   const dispatch = useDispatch();
   const addItem = (item) => {
     messageApi.open({
       type: "success",
       content: "Добавлено в корзину",
     });
-    setBadgeCount(badgeCount + 1);
     dispatch(addToCart(item));
   };
   return (
@@ -51,7 +47,7 @@ export default function ProductCard({
                 </span>
                 <hr className={s.hr} />
                 <span className={s.discount}>
-                  Discount {Math.round(discountPercentage)}%
+                  Скидка {Math.round(discountPercentage)}%
                 </span>
               </div>
             ) : (

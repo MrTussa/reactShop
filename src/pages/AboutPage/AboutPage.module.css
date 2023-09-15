@@ -47,22 +47,18 @@
   height: auto;
   background-color: #1677ff;
   color: white;
-  width: 50%;
+  width: 100%;
+  border-radius: 0 0 8px 8px;
 }
 .button:hover {
   color: #1677ff;
   background-color: white;
   border-top: 1px solid rgb(61, 61, 61);
 }
-.button:first-child {
-  border-radius: 0 0 0 8px;
-}
-.button:last-child {
-  border-radius: 0 0 8px 0;
-}
 .buttonContainer {
   position: relative;
   display: flex;
+  width: 100%;
   height: 40px;
 }
 .decoration {
