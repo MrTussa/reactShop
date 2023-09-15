@@ -23,7 +23,7 @@ export default function ProductCard({
       bodyStyle={{ padding: "0" }}
       cover={
         <Carousel>
-          {images.map((url) => {
+          {images?.map((url) => {
             return (
               <div key={id}>
                 <img className={s.img} key={id} alt={title} src={url} />

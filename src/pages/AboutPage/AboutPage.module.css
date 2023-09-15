@@ -8,6 +8,23 @@
   text-align: center;
   background: #364d79;
 }
+.imgCover {
+  height: 230px;
+  width: 200px;
+  object-fit: cover;
+  color: #fff;
+  line-height: 160px;
+  text-align: center;
+  border-radius: 8px;
+  background: #364d79;
+}
+.imgContainer {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+}
 .card {
   padding: 16px;
   display: flex;

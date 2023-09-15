@@ -6,7 +6,7 @@ import { userLogin } from "../../store/authActions";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
-export default function Login({ }) {
+export default function Login({}) {
   const { loading, error, userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export default function Login({ }) {
   console.log(userInfo);
   useEffect(() => {
     if (userInfo) {
-      navigate("/")
+      navigate("/");
     }
   }, [userInfo]);
 
@@ -31,6 +31,9 @@ export default function Login({ }) {
         }}
         onFinish={submitForm}
       >
+        <span style={{ color: "rgba(0,0,0,0.4)" }}>
+          username: kminchelle , password: 0lelplR
+        </span>
         <Form.Item
           className={s.div}
           name="username"

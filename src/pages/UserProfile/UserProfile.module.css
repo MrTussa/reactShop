@@ -2,10 +2,10 @@
   top: 25%;
   position: absolute;
   left: 50%;
-  transform: translate(-50% );
+  transform: translate(-50%);
 }
 .card {
-  padding: 20px 20px 0 20px;
+  padding: 20px 0 0 0;
   width: 30dvw;
 }
 .content {
@@ -19,4 +19,21 @@
 .userDetail {
   display: flex;
   gap: 10px;
+}
+.button {
+  width: 50%;
+}
+.toMain {
+  border-radius: 0 0 0 8px !important;
+}
+.logout {
+  border-radius: 0 0 8px 0 !important;
+}
+.username {
+  font-weight: 700;
+  font-size: 1.7em;
+}
+.userDetail {
+  color: rgba(0, 0, 0, 0.582);
+  font-size: 1.5em;
 }

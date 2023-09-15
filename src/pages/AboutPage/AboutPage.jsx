@@ -40,26 +40,21 @@ export default function AboutPage({}) {
           </Spin>
         </div>
       ) : (
-        <Card
-          key={id}
-          bodyStyle={{ padding: "0" }}
-          cover={
-            <Carousel>
-              {serverData.images.map((url) => {
-                return (
-                  <div key={id}>
-                    <img
-                      className={s.img}
-                      key={id}
-                      alt={serverData.title}
-                      src={serverData.url}
-                    />
-                  </div>
-                );
-              })}
-            </Carousel>
-          }
-        >
+        <Card key={id} bodyStyle={{ padding: "0" }}>
+          <div className={s.imgContainer}>
+            {serverData.images.map((url) => {
+              return (
+                <div key={id}>
+                  <img
+                    className={s.imgCover}
+                    key={id}
+                    alt={serverData.title}
+                    src={url}
+                  />
+                </div>
+              );
+            })}
+          </div>
           {contextHolder}
           <div className={s.content}>
             <div className={s.card}>

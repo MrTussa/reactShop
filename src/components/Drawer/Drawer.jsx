@@ -1,9 +1,14 @@
 import s from "./Drawer.module.css";
 import { Drawer as AntdDeawer, Space, Button } from "antd";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearCart } from "../../store/shopSlice";
 export default function Drawer({ onClose, open }) {
   const { userCart } = useSelector((state) => state.shop);
   let index = 0;
+  const dispatch = useDispatch();
+  const clear = () => {
+    dispatch(clearCart());
+  };
   return (
     <AntdDeawer
       title="Корзина"
@@ -13,9 +18,8 @@ export default function Drawer({ onClose, open }) {
       open={open}
       extra={
         <Space>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button type="primary" onClick={onClose}>
-            OK
+          <Button type="primary" onClick={clear}>
+            Очистить
           </Button>
         </Space>
       }

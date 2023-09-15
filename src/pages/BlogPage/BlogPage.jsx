@@ -1,31 +1,30 @@
-import s from "./SearchPage.module.css";
-import { List, Spin, Card, Alert } from "antd";
+import s from "./BlogPage.module.css";
+import { List, Spin, Card, Alert, Pagination } from "antd";
 import { ProductCard } from "../../components";
-import { useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-export default function SearchPage({}) {
+export default function BlogPage({}) {
   const [serverData, setServerData] = useState([]);
+  const [page, setPage] = useState(1);
   const API_URL = import.meta.env.VITE_API;
-  const [params] = useSearchParams();
-  const searchName = params.get("q");
-  const searchType = params.get("type");
   useEffect(() => {
     setServerData([]);
     const getData = async () => {
       try {
         const { data } = await axios.get(
-          `${API_URL}/${searchType}/search?&q=${searchName}`
+          `${API_URL}/posts?skip=${30 * (page - 1)}`
         );
         console.log("Suces", data);
-        setServerData(data[searchType]);
+        setServerData(data.posts);
       } catch (error) {
         console.log(error);
       }
     };
     getData();
-  }, [params]);
-
+  }, [page]);
+  const pageSwitch = (current) => {
+    setPage(current);
+  };
   const { innerWidth: width } = window;
   const listColumn = () => {
     if (width > 1500) {
@@ -40,7 +39,6 @@ export default function SearchPage({}) {
   };
 
   console.log(serverData);
-  console.log(`${API_URL}/${searchType}/search?&q=${searchName}`);
   return (
     <div className={s.content}>
       {!serverData ? (
@@ -50,21 +48,18 @@ export default function SearchPage({}) {
           </Spin>
         </div>
       ) : (
-        <List
-          grid={{ gutter: 16, column: listColumn() }}
-          dataSource={serverData}
-          renderItem={(item) =>
-            searchType === "posts" ? (
+        <>
+          <List
+            grid={{ gutter: 16, column: listColumn() }}
+            dataSource={serverData}
+            renderItem={(item) => (
               <List.Item>
                 <Card title={item.title}>{item.body}</Card>
               </List.Item>
-            ) : (
-              <List.Item>
-                <ProductCard item={item} />
-              </List.Item>
-            )
-          }
-        />
+            )}
+          />
+          <Pagination defaultCurrent={1} onChange={pageSwitch} total={50} />
+        </>
       )}
     </div>
   );

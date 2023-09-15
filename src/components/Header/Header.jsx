@@ -31,14 +31,6 @@ export default function Header({}) {
       key: 3,
       label: <NavLink to="/blog">Блог</NavLink>,
     },
-    {
-      key: 4,
-      label: userToken ? (
-        <NavLink to="/profile">Профиль</NavLink>
-      ) : (
-        <NavLink to="/login">Войти</NavLink>
-      ),
-    },
   ];
   const showDrawer = () => {
     setOpen(true);
@@ -61,22 +53,35 @@ export default function Header({}) {
   );
   return (
     <Layout.Header className={s.header}>
-      <Menu
-        theme="dark"
-        mode="horizontal"
-        defaultSelectedKeys={["1"]}
-        items={menuItems}
-      />
       <div className={s.menu}>
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={["1"]}
+          items={menuItems}
+        />
         <Input.Search
           onSearch={(value) => onSearch(value)}
           addonBefore={selectSearch}
+          style={{ width: "50%" }}
         />
-        <Badge count={badgeCount}>
-          <Button type="primary" onClick={showDrawer}>
-            <ShoppingCartOutlined /> Корзина
-          </Button>
-        </Badge>
+        <div className={s.menuButtons}>
+          {userToken ? (
+            <NavLink to="/profile">
+              <Button type="primary">Профиль</Button>
+            </NavLink>
+          ) : (
+            <NavLink to="/login">
+              <Button type="primary">Войти</Button>
+            </NavLink>
+          )}
+
+          <Badge count={badgeCount}>
+            <Button type="primary" onClick={showDrawer}>
+              <ShoppingCartOutlined /> Корзина
+            </Button>
+          </Badge>
+        </div>
         <Drawer onClose={onClose} open={open} />
       </div>
     </Layout.Header>

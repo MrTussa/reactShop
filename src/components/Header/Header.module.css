@@ -1,14 +1,22 @@
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .menu {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-  .select {
-    background-color: white;
-    border-radius: 6px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.select {
+  background-color: white;
+  border-radius: 6px;
+}
+.menuButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
