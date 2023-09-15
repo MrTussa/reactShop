@@ -57,7 +57,7 @@ export default function ProductShop({}) {
               </List.Item>
             )}
           />
-          <Pagination defaultCurrent={1} onChange={pageSwitch} total={50} />
+          <Pagination defaultCurrent={1} onChange={pageSwitch} total={40} />
         </>
       )}
     </div>

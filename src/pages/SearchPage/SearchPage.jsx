@@ -53,17 +53,27 @@ export default function SearchPage({}) {
         <List
           grid={{ gutter: 16, column: listColumn() }}
           dataSource={serverData}
-          renderItem={(item) =>
-            searchType === "posts" ? (
-              <List.Item>
+          renderItem={(item) => (
+            <List.Item>
+              {searchType == "posts" ? (
                 <Card title={item.title}>{item.body}</Card>
-              </List.Item>
-            ) : (
-              <List.Item>
+              ) : searchType == "products" ? (
                 <ProductCard item={item} />
-              </List.Item>
-            )
-          }
+              ) : (
+                <Card
+                  title={item.username}
+                  bodyStyle={{ display: "flex", flexDirection: "column" }}
+                >
+                  <div className={s.userDetail}>
+                    <span>{item.firstName}</span>
+                    <span>{item.lastName}</span>
+                  </div>
+                  <span>Email: {item.email}</span>
+                  <span>Gender: {item.gender}</span>
+                </Card>
+              )}
+            </List.Item>
+          )}
         />
       )}
     </div>

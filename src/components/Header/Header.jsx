@@ -49,6 +49,7 @@ export default function Header({}) {
     >
       <Select.Option value="products">Продукты</Select.Option>
       <Select.Option value="posts">Посты</Select.Option>
+      <Select.Option value="users">Пользователи</Select.Option>
     </Select>
   );
   return (

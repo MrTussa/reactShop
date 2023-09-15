@@ -4,3 +4,11 @@
 .layout {
   background-color: rgb(248, 248, 248);
 }
+.userDetail {
+  display: flex;
+  gap: 10px;
+}
+.usersContainer {
+  display: flex;
+  flex-direction: column;
+}
