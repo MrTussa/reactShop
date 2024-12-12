@@ -1,55 +1,55 @@
-import axios from 'axios'
-import { createAsyncThunk } from '@reduxjs/toolkit'
+import axios from "axios";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const backendURL = 'https://dummyjson.com/auth'
+const backendURL = "https://dummyjson.com/auth";
 
 export const registerUser = createAsyncThunk(
-    'auth/register',
-    async ({ username, password }, { rejectWithValue }) => {
-      try {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-        await axios.post(
-          `${backendURL}/api/user/register`,
-          { username, password },
-          config
-        )
-      } catch (error) {
-        if (error.response && error.response.data.message) {
-          return rejectWithValue(error.response.data.message)
-        } else {
-          return rejectWithValue(error.message)
-        }
-      }
-    }
-  )
-
-export const userLogin  = createAsyncThunk(
-  'auth/login',
+  "auth/register",
   async ({ username, password }, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
+      };
+      await axios.post(
+        `${backendURL}/api/user/register`,
+        { username, password },
+        config
+      );
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
       }
+    }
+  }
+);
+
+export const userLogin = createAsyncThunk(
+  "auth/login",
+  async ({ username, password }, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
       const { data } = await axios.post(
         `${backendURL}/login`,
         { username, password },
         config
-      )
-      localStorage.setItem('userToken', data.token)
-      localStorage.setItem('userInfo', JSON.stringify(data))
-      return data
+      );
+      localStorage.setItem("userToken", data.accessToken);
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message)
+        return rejectWithValue(error.response.data.message);
       } else {
-        return rejectWithValue(error.message)
+        return rejectWithValue(error.message);
       }
     }
   }
-)
+);

@@ -32,7 +32,7 @@ export default function Login({}) {
         onFinish={submitForm}
       >
         <span style={{ color: "rgba(0,0,0,0.4)" }}>
-          username: kminchelle , password: 0lelplR
+          username: emilys , password: emilyspass
         </span>
         <Form.Item
           className={s.div}
